@@ -149,6 +149,28 @@ La carpeta `results/evidence/` incluye:
 
 Estas evidencias permiten evaluar visualmente el desempeño del modelo.
 
+## Predicciones en imágenes nuevas
+
+Para evaluar la capacidad de generalización del modelo, se realizaron inferencias sobre imágenes que **no formaban parte del dataset de entrenamiento ni del conjunto de validación**.
+
+Las siguientes imágenes muestran ejemplos de detección realizados por el modelo YOLOv8 entrenado.
+
+### Predicción 1
+![Predicción 1](./results/evidence/imagenesnuevas/WH905B~1.JPE)
+
+### Predicción 2
+![Predicción 2](./results/evidence/imagenesnuevas/WHATSA~1.JPE)
+
+### Predicción 3
+![Predicción 3](./results/evidence/imagenesnuevas/WHATSA~2.JPE)
+
+### Predicción 4
+![Predicción 4](./results/evidence/imagenesnuevas/WHATSA~3.JPE)
+
+### Predicción 5
+![Predicción 5](./results/evidence/imagenesnuevas/WHATSA~4.JPE)
+
+Estas predicciones permiten observar cómo el modelo detecta diferentes tipos de maquinaria en escenarios no vistos durante el entrenamiento.
 ---
 
 # 8. Análisis de errores
