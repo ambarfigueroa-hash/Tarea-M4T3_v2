@@ -19,6 +19,13 @@ El pipeline del proyecto incluye:
 - Generación de predicciones en imágenes nuevas
 - Análisis de errores del modelo
 
+# Pesos del modelo
+
+Los pesos del modelo entrenado pueden encontrarse en:
+
+weights/best.pt
+
+Este archivo corresponde al modelo YOLOv8 entrenado durante el experimento.
 ---
 
 # 2. Problema AECO
