@@ -405,6 +405,15 @@ El modelo puede generar falsos positivos y falsos negativos, por lo que no debe 
 Este proyecto se distribuye bajo la licencia **MIT License**.
 
 ---
+## Documentación del proyecto
+
+Presentación del proyecto:
+
+[Ver presentación](./docs/Presentacion de deteccion de equipos.pdf)
+
+Mini informe del proyecto:
+
+[Ver informe](./docs/Resumen Ejecutivo.pdf)
 
 # Autor
 
