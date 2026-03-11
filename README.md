@@ -1,47 +1,51 @@
 # Detección de Equipos de Construcción con YOLOv8
-### MAIC – Tarea de Visión Computacional (M4T3) AMBAR MARIA FIGUEROA FIGARI
+
+MAIC – Tarea de Visión Computacional (M4T3)  
+Autor: **Ambar María Figueroa Figari**
 
 ---
 
 # 1. Descripción del Proyecto
 
-Este proyecto implementa un modelo de **detección de objetos (Equipos pesados de construccion en obra civil) utilizando YOLOv8** para identificar maquinaria y vehículos utilizados en entornos de construcción.
+Este proyecto implementa un modelo de **detección de objetos basado en YOLOv8** para identificar maquinaria pesada y vehículos utilizados en obras de construcción.
 
-El objetivo es demostrar el flujo completo de desarrollo de un sistema de visión computacional, incluyendo:
+El objetivo es demostrar el flujo completo de desarrollo de un sistema de visión computacional aplicado al sector **AECO (Architecture, Engineering, Construction and Operations)**.
 
-- Preparación y etiquetado de datos
-- Entrenamiento del modelo
-- Evaluación del desempeño
-- Análisis de errores
-- Generación de inferencias con el modelo entrenado
+El pipeline del proyecto incluye:
 
-El modelo fue entrenado utilizando el framework **Ultralytics YOLOv8** en el entorno de **Google Colab**, empleando un dataset anotado y gestionado mediante **Roboflow**.
+- Preparación y anotación del dataset
+- Entrenamiento del modelo YOLOv8
+- Evaluación del desempeño del modelo
+- Generación de predicciones en imágenes nuevas
+- Análisis de errores del modelo
 
 ---
 
-# 2. Problema a Resolver
+# 2. Problema AECO
 
-En obras de construcción existen múltiples tipos de maquinaria pesada que deben ser monitoreadas para:
+En proyectos de construcción es importante poder **identificar y monitorear automáticamente la maquinaria presente en obra**, con el fin de mejorar:
 
 - control operativo
 - seguridad en obra
+- seguimiento de equipos
 - análisis de productividad
-- gestión de equipos
 
-La visión computacional permite automatizar la detección de estos equipos en imágenes o videos, facilitando la supervisión de operaciones en entornos de construcción.
+Los modelos de visión computacional permiten automatizar esta tarea mediante **detección automática de objetos en imágenes o video**.
 
-Este proyecto explora el uso de **detección automática de maquinaria** mediante modelos de deep learning.
+Este proyecto entrena un modelo para detectar diferentes tipos de equipos de construcción.
 
 ---
 
 # 3. Dataset
 
-El dataset fue preparado utilizando la plataforma **Roboflow**, donde se realizaron las anotaciones de los objetos presentes en las imágenes.
+El dataset fue preparado utilizando la plataforma **Roboflow**.
 
-**Plataforma de dataset:** Roboflow  
-**Proyecto:** `Tarea-M4T3_v2`
+Dataset:  
+https://app.roboflow.com/ambars-workspace/tarea-m4t3_v2/models/tarea-m4t3_v2/2
 
-### Clases detectadas
+El dataset contiene imágenes etiquetadas manualmente con **bounding boxes** alrededor de cada objeto.
+
+### Clases del modelo
 
 El modelo fue entrenado para detectar las siguientes clases:
 
@@ -58,39 +62,45 @@ El modelo fue entrenado para detectar las siguientes clases:
 - Bus
 - Person
 
-Las anotaciones se realizaron utilizando **bounding boxes** ajustadas al objeto visible en cada imagen.
+### Reglas de etiquetado
+
+- Las bounding boxes fueron dibujadas ajustadas al objeto visible.
+- Solo se anotaron objetos claramente identificables.
+- Objetos parcialmente visibles fueron etiquetados cuando era posible reconocer su clase.
 
 ### División del dataset
 
 El dataset fue dividido en:
+Train
+Validation
+Test
 
-- **Training set**
-- **Validation set**
-- **Test set**
-
-El dataset fue exportado en formato **YOLOv8**.
+con un split aproximado **80 / 20**.
 
 ---
 
-# 4. Modelo Utilizado
+# 4. Modelo
 
-El modelo fue entrenado utilizando la arquitectura **YOLOv8s** del framework Ultralytics.
+El modelo fue entrenado utilizando **YOLOv8s** del framework Ultralytics.
 
-### Configuración del entrenamiento
+Configuración de entrenamiento:
 
 | Parámetro | Valor |
 |----------|------|
 Modelo | YOLOv8s |
-Épocas | 30 |
-Tamaño de imagen | 640 |
+Epochs | 30 |
+Image size | 640 |
 Framework | Ultralytics YOLOv8 |
-Entorno de entrenamiento | Google Colab (GPU Tesla T4) |
+Entorno | Google Colab (GPU Tesla T4) |
+
+Versión de Ultralytics utilizada:
+ultralytics==8.2.103
 
 ---
 
-# 5. Métricas del Modelo
+# 5. Resultados del Modelo
 
-Las métricas fueron calculadas utilizando el conjunto de validación.
+Métricas obtenidas en el conjunto de validación:
 
 | Métrica | Resultado |
 |-------|------|
@@ -99,80 +109,65 @@ Recall | 0.278 |
 mAP50 | 0.406 |
 mAP50-95 | 0.305 |
 
-Las curvas de entrenamiento y evaluación pueden encontrarse en la carpeta:
-results/curves/
+El modelo presenta un desempeño moderado, con una precisión aceptable pero un recall relativamente bajo, lo que indica que algunos objetos presentes en las imágenes no son detectados.
 
 ---
 
-# 6. Resultados
-
-Este repositorio incluye los siguientes resultados del entrenamiento:
-
-- Curvas de entrenamiento
-- Matriz de confusión
-- Ejemplos de predicciones del modelo
-
-Ubicación de los archivos:
-results/curves/results.png
-results/curves/confusion_matrix.png
-
-Ejemplos de detección:
-results/evidence/
-
-Estas imágenes muestran las predicciones generadas por el modelo entrenado.
+# 6. Resultados Visuales
 
 ## Curvas de entrenamiento
 
-![Curvas de entrenamiento](results/curves/results.png)
+![Training Curves](./results/curves/results.png)
 
-Estas curvas muestran la evolución del entrenamiento del modelo, incluyendo precisión, recall y métricas de evaluación durante las épocas de entrenamiento.
+Estas curvas muestran la evolución de las métricas del modelo durante el entrenamiento.
 
 ---
 
 ## Matriz de confusión
 
-![Matriz de confusión](results/curves/confusion_matrix.png)
+![Confusion Matrix](./results/curves/confusion_matrix.png)
 
-La matriz de confusión permite visualizar cómo el modelo clasifica cada tipo de maquinaria y qué clases pueden confundirse entre sí.
+La matriz de confusión permite analizar qué clases presentan mayor nivel de confusión.
 
 ---
 
-## Ejemplo de detección del modelo
+## Ejemplo de detección
 
-![Ejemplo de detección](results/evidence/val_batch0_pred.jpg)
+![Detection Example](./results/evidence/val_batch0_pred.jpg)
 
-La imagen anterior muestra un ejemplo de predicción realizada por el modelo YOLOv8 entrenado.
+Ejemplo de predicción generada por el modelo YOLOv8 entrenado.
+
 ---
 
-# 7. Análisis de Errores
+# 7. Evidencias del modelo
 
-Análisis de errores del modelo
-Interpretación general del desempeño
+La carpeta `results/evidence/` incluye:
 
-El modelo de detección basado en YOLOv8s fue evaluado utilizando el conjunto de validación, obteniendo los siguientes resultados globales:
+- ejemplos de anotaciones del dataset
+- predicciones del conjunto de validación
+- predicciones sobre imágenes nuevas
 
-Precision: 0.53
+Estas evidencias permiten evaluar visualmente el desempeño del modelo.
 
-Recall: 0.278
+---
 
-mAP50: 0.406
+# 8. Análisis de errores
 
-mAP50-95: 0.305
+Las métricas obtenidas indican que el modelo tiene una **precision moderada (0.53)** pero un **recall relativamente bajo (0.278)**.
 
-Estos resultados indican que el modelo tiene un desempeño moderado, con una capacidad razonable para identificar correctamente objetos detectados, pero con limitaciones para detectar todos los objetos presentes en las imágenes.
-
-El valor de precision (0.53) sugiere que aproximadamente el 53% de las detecciones realizadas por el modelo son correctas.
-Sin embargo, el recall (0.278) indica que el modelo solo detecta alrededor del 27.8% de los objetos reales presentes en las imágenes, lo que sugiere una cantidad considerable de falsos negativos.
-
-Durante la evaluación del modelo se observaron algunas limitaciones.
+Esto sugiere que el modelo logra detectar correctamente algunos objetos, pero **no logra detectar todos los objetos presentes en las imágenes**.
 
 ### Falsos positivos
 
-Algunos vehículos pueden ser detectados incorrectamente cuando existen oclusiones parciales o similitud visual entre tipos de maquinaria.
+1. Algunos loaders fueron clasificados como excavators debido a similitud visual.
+2. Algunos trucks fueron detectados como articulated trucks.
+3. Vehículos parcialmente visibles generaron detecciones incorrectas.
 
 ### Falsos negativos
 
-Objetos pequeños o maquinaria ubicada a gran distancia pueden no ser detectados correctamente.
+1. Objetos pequeños o lejanos no fueron detectados.
+2. Algunas personas presentes en la escena no fueron identificadas.
+3. Equipos parcialmente ocluidos no fueron detectados correctamente.
 
 ### Análisis por clases
 
@@ -303,77 +298,44 @@ pueden mejorar la capacidad del modelo para generalizar.
 
 Entrenar el modelo durante más épocas podría mejorar la convergencia del entrenamiento.
 
-### Posibles mejoras (Resumen)
 
-Para mejorar el desempeño del modelo se recomienda:
+### Mejoras propuestas (Resumen)
 
 - aumentar el tamaño del dataset
-- balancear mejor las clases
-- incluir mayor variedad de ángulos
-- incorporar diferentes condiciones de iluminación
+- balancear el número de ejemplos por clase
+- incluir mayor variedad de ángulos e iluminación
 - aumentar el número de épocas de entrenamiento
 
-### Conclusión
-
-El modelo muestra un desempeño moderado con una precisión aceptable pero un recall relativamente bajo, lo que indica que el modelo tiende a ser conservador al detectar objetos.
-
-Las principales limitaciones del modelo están asociadas al tamaño reducido del dataset y al desbalance entre clases, lo cual es común en proyectos iniciales de visión computacional.
-
-Con un dataset más grande y balanceado, es probable que el desempeño del modelo mejore significativamente.
 ---
 
-# 8. Gobernanza y Uso Responsable
+# 9. Reproducibilidad
 
-Este proyecto sigue principios básicos de **IA responsable**.
+Para reproducir este proyecto:
 
-### Privacidad
-
-El dataset utilizado no contiene información personal identificable.
-El dataset contiene imagenes variadas de espacios de construccion.
-El dataset contiene imagenes empresariales.
-
-### Limitaciones del modelo
-
-El modelo puede presentar menor precisión en situaciones como:
-
-- iluminación deficiente
-- oclusiones parciales
-- objetos pequeños
-- tipos de maquinaria no vistos durante el entrenamiento
-
-### Riesgos
-
-Los modelos de detección pueden generar:
-
-- falsos positivos
-- falsos negativos
-
-Por lo tanto, el sistema no debe ser utilizado como único mecanismo de decisión en entornos críticos de seguridad.
-
----
-
-# 9. Cómo Reproducir el Proyecto
-
-Para reproducir el entrenamiento o inferencia del modelo:
-
-1. Abrir el notebook del proyecto en **Google Colab**
-2. Instalar las dependencias necesarias:
-
+1. Abrir el notebook en Google Colab.
+2. Instalar dependencias:
 pip install ultralytics roboflow
 
+3. Autenticarse en Roboflow.
+4. Descargar el dataset.
+5. Ejecutar el entrenamiento o cargar los pesos entrenados.
+6. Ejecutar inferencia sobre nuevas imágenes.
 
-3. Autenticarse en Roboflow
-4. Descargar el dataset
-5. Ejecutar el entrenamiento o cargar los pesos entrenados
+Última ejecución verificada en Colab:
+- GPU utilizada: Tesla T4
+- Tiempo de ejecución aproximado: 20–30 minutos
 
 ---
 
-# 10. Estructura del Repositorio
+# 10. Estructura del repositorio
 Tarea-M4T3_v2
 │
 ├── notebooks
 │
 ├── docs
+│ ├── class_definitions.md
+│ ├── error_analysis.md
+│ └── governance_checklist.md
 │
 ├── results
 │ ├── curves
@@ -384,7 +346,7 @@ Tarea-M4T3_v2
 
 ---
 
-# 11. Pesos del Modelo
+# 11. Pesos del modelo
 
 Los pesos del modelo entrenado se encuentran en:
 
@@ -394,7 +356,22 @@ weights/best.pt
 
 ---
 
-# 12. Licencia
+# 12. Gobernanza y uso responsable
+
+Este proyecto sigue principios básicos de IA responsable.
+
+Privacidad:
+El dataset utilizado no contiene información personal identificable.
+
+Limitaciones:
+El modelo puede presentar menor precisión en condiciones de baja iluminación, oclusión parcial o presencia de maquinaria no incluida en el dataset.
+
+Riesgos:
+El modelo puede generar falsos positivos y falsos negativos, por lo que no debe utilizarse como único sistema de decisión en entornos críticos.
+
+---
+
+# 13. Licencia
 
 Este proyecto se distribuye bajo la licencia **MIT License**.
 
@@ -402,6 +379,6 @@ Este proyecto se distribuye bajo la licencia **MIT License**.
 
 # Autor
 
-**Ambar Figueroa Figari**  
+Ambar María Figueroa Figari  
 MAIC – Proyecto de Visión Computacional
 
