@@ -409,11 +409,11 @@ Este proyecto se distribuye bajo la licencia **MIT License**.
 
 Presentación del proyecto:
 
-[Ver presentación](./docs/Presentacion de deteccion de equipos.pdf)
+[Ver presentación](docs/Presentacion de deteccion de equipos.pdf)
 
 Mini informe del proyecto:
 
-[Ver informe](./docs/Resumen Ejecutivo.pdf)
+[Ver informe](docs/Resumen Ejecutivo.pdf)
 
 # Autor
 
